@@ -1,0 +1,79 @@
+<!-- HEADER FIJO -->
+<header id="header">
+  <div class="header-content">
+    <div class="header-left">
+      <img src="assets/ingo.jpg" alt="Logo INGO" class="logo" />
+      <span class="header-title">"INGO" - ChatBot Agrícola para manejo de ubicaciones y difusión de mapeo masivo</span>
+    </div>
+    <div class="header-right">
+      AGROCOMPA
+    </div>
+  </div>
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main id="mainContent">
+  <section id="historialContainer">
+    <h1 id="txtHistorial">Historial de datos recopilados por INGO</h1>
+
+    <div class="search-wrapper">
+      <div class="search-input">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Buscar nombre, teléfono o correo" />
+      </div>
+    </div>
+
+    <!-- SCROLL SOLO EN TABLA -->
+    <div class="tabla-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Número telefónico</th>
+            <th>Nombre</th>
+            <th>Correo Electrónico</th>
+            <th>Ubicación</th>
+            <th>Mapa de Textura</th>
+            <th>Mapa de Agua</th>
+            <th>Mapa de Fotosíntesis</th>
+            <th>Plano de Relieve</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuariosPaginados">
+            <td>{{ usuario.telefono }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.correo }}</td>
+            <td><a [href]="usuario.ubicacion" target="_blank">{{ usuario.ubicacion }}</a></td>
+            <td><img [src]="usuario.mapatextura" alt="Mapa de Textura" (click)="abrirModal(usuario.mapatextura, usuario.descripcionmapatextura, 'Mapa de Textura')" /></td>
+            <td><img [src]="usuario.mapaagua" alt="Mapa de Agua" (click)="abrirModal(usuario.mapaagua, usuario.descripcionmapaagua, 'Mapa de Agua')" /></td>
+            <td><img [src]="usuario.mapafotosintesis" alt="Mapa de Fotosíntesis" (click)="abrirModal(usuario.mapafotosintesis, usuario.descripcionmapafotosintesis, 'Mapa de Fotosíntesis')" /></td>
+            <td><img [src]="usuario.planorelieve" alt="Plano de Relieve" (click)="abrirModal(usuario.planorelieve, usuario.descripcionplanorelieve, 'Plano de Relieve')" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="paginacion">
+      <button (click)="paginaAnterior()" [disabled]="currentPage === 1">←</button>
+      <span>Página {{ currentPage }} de {{ totalPaginas }}</span>
+      <button (click)="siguientePagina()" [disabled]="currentPage === totalPaginas">→</button>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER FIJO -->
+<footer id="footer">
+  &copy; 2025 AGROCOMPA - Todos los derechos reservados.
+</footer>
+
+<!-- MODAL CORRECTO USANDO ANGULAR -->
+<div class="modal" *ngIf="modalAbierto" (click)="cerrarModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="cerrarModal()">&times;</span>
+    <h2>{{ tituloModal }}</h2>
+    <img [src]="imagenModal" alt="Imagen del mapa" />
+    <p>{{ descripcionModal }}</p>
+  </div>
+</div>
+
+

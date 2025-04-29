@@ -1,0 +1,318 @@
+/* Layout general */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* 👈 Para no hacer scroll general, solo scroll en tabla */
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* HEADER fijo */
+#header {
+  background-color: #29691B;
+  color: white;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.header-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.header-right {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* FOOTER fijo */
+#footer {
+  background-color: #29691B;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  height: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* CONTENIDO principal debajo de header y arriba del footer */
+#mainContent {
+  margin-top: 70px; /* espacio header */
+  margin-bottom: 50px; /* espacio footer */
+  height: calc(100vh - 120px); /* altura total - header - footer */
+  overflow: hidden;
+}
+
+/* CONTENIDO del historial */
+#historialContainer {
+  width: 90%;
+  max-width: 1400px;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#txtHistorial {
+  text-align: center;
+  font-size: 28px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* BUSCADOR */
+.search-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  position: relative;
+}
+
+.search-input i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: gray;
+  font-size: 16px;
+}
+
+.search-input input {
+  padding: 8px 8px 8px 35px;
+  width: 300px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* SCROLL SOLO EN LA TABLA */
+.tabla-scroll {
+  flex-grow: 1;
+  overflow-y: auto;
+  background: white;
+  border-radius: 8px;
+  padding: 5px;
+  background: white;
+  padding: 0px;
+}
+
+/* ESTILO DE TABLA */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th {
+  text-align: center;
+  padding: 12px 8px;
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  white-space: normal;
+  word-wrap: break-word;
+  background-color: #4CAF50 !important;
+}
+
+td {
+  text-align: center;
+  padding: 5px 8px;
+  font-size: 16px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* ANCHO ESPECÍFICO POR COLUMNA */
+th:nth-child(1),
+td:nth-child(1) {
+  width: 120px; /* Número telefónico */
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 120px; /* Nombre */
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 180px; /* Correo electrónico */
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+  width: 250px; /* Ubicación (enlace largo) */
+}
+
+th:nth-child(5),
+td:nth-child(5),
+th:nth-child(6),
+td:nth-child(6),
+th:nth-child(7),
+td:nth-child(7),
+th:nth-child(8),
+td:nth-child(8) {
+  width: 100px; /* Mapas (imágenes) */
+}
+
+table img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+/* Paginación */
+.paginacion {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.paginacion button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.paginacion button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.paginacion span {
+  font-size: 16px;
+  margin: 0 10px;
+}
+
+
+.modal {
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+}
+
+/* Botón de cerrar */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: black;
+}
+
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-contenido {
+  background: white;
+  padding: 20px;
+  width: 400px;
+  max-width: 90%;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content img {
+  width: 60%;
+  max-width: 400px;
+  margin: 20px 0;
+  border-radius: 10px;
+}
+
+
+/* Botón de cerrar */
+.cerrar-modal {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 28px;
+  cursor: pointer;
+  color: black;
+}
+.modal-content p {
+  font-size: 16px;
+  color: #333;
+}

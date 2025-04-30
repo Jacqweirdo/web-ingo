@@ -19,7 +19,13 @@
     <div class="search-wrapper">
       <div class="search-input">
         <i class="fas fa-search"></i>
-        <input type="text" placeholder="Buscar nombre, teléfono o correo" />
+        <input
+  type="text"
+  placeholder="Buscar nombre, teléfono o correo"
+  [(ngModel)]="textoBusqueda"
+  (input)="filtrarUsuarios()"
+/>
+
       </div>
     </div>
 
@@ -44,10 +50,26 @@
             <td>{{ usuario.nombre }}</td>
             <td>{{ usuario.correo }}</td>
             <td><a [href]="usuario.ubicacion" target="_blank">{{ usuario.ubicacion }}</a></td>
-            <td><img [src]="usuario.mapatextura" alt="Mapa de Textura" (click)="abrirModal(usuario.mapatextura, usuario.descripcionmapatextura, 'Mapa de Textura')" /></td>
-            <td><img [src]="usuario.mapaagua" alt="Mapa de Agua" (click)="abrirModal(usuario.mapaagua, usuario.descripcionmapaagua, 'Mapa de Agua')" /></td>
-            <td><img [src]="usuario.mapafotosintesis" alt="Mapa de Fotosíntesis" (click)="abrirModal(usuario.mapafotosintesis, usuario.descripcionmapafotosintesis, 'Mapa de Fotosíntesis')" /></td>
-            <td><img [src]="usuario.planorelieve" alt="Plano de Relieve" (click)="abrirModal(usuario.planorelieve, usuario.descripcionplanorelieve, 'Plano de Relieve')" /></td>
+            <td>
+              <img *ngIf="usuario.mapatextura" [src]="usuario.mapatextura" alt="Mapa de Textura"
+                  (click)="abrirModal(usuario.mapatextura, usuario.descripcionmapatextura, 'Mapa de Textura')" />
+            </td>
+
+            <td>
+              <img *ngIf="usuario.mapaagua" [src]="usuario.mapaagua" alt="Mapa de Agua"
+                  (click)="abrirModal(usuario.mapaagua, usuario.descripcionmapaagua, 'Mapa de Agua')" />
+            </td>
+
+            <td>
+              <img *ngIf="usuario.mapafotosintesis" [src]="usuario.mapafotosintesis" alt="Mapa de Fotosíntesis"
+                  (click)="abrirModal(usuario.mapafotosintesis, usuario.descripcionmapafotosintesis, 'Mapa de Fotosíntesis')" />
+            </td>
+
+            <td>
+              <img *ngIf="usuario.planorelieve" [src]="usuario.planorelieve" alt="Plano de Relieve"
+                  (click)="abrirModal(usuario.planorelieve, usuario.descripcionplanorelieve, 'Plano de Relieve')" />
+            </td>
+
           </tr>
         </tbody>
       </table>

@@ -19,6 +19,8 @@ export class HistorialComponent implements OnInit {
   imagenModal: string = '';
   descripcionModal: string = '';
   tituloModal: string = '';
+  textoBusqueda: string = ''; // input enlazado
+  usuariosFiltrados: any[] = []; // lista filtrada
 
   constructor(private datosusuariosService: DatosusuariosService) {}
 
@@ -29,16 +31,18 @@ export class HistorialComponent implements OnInit {
   obtenerDatos(): void {
     this.datosusuariosService.getDatosUsuarios().subscribe(data => {
       this.usuarios = data;
-      this.totalPaginas = Math.ceil(this.usuarios.length / this.registrosPorPagina);
+      this.usuariosFiltrados = [...this.usuarios]; // inicia sin filtro
+      this.totalPaginas = Math.ceil(this.usuariosFiltrados.length / this.registrosPorPagina);
       this.paginarUsuarios();
     });
   }
 
 
-  paginarUsuarios() {
+
+  paginarUsuarios(): void {
     const inicio = (this.currentPage - 1) * this.registrosPorPagina;
     const fin = inicio + this.registrosPorPagina;
-    this.usuariosPaginados = this.usuarios.slice(inicio, fin);
+    this.usuariosPaginados = this.usuariosFiltrados.slice(inicio, fin);
   }
 
   siguientePagina() {
@@ -64,6 +68,20 @@ export class HistorialComponent implements OnInit {
     } else {
       console.error('Error: faltan datos del mapa');
     }
+  }
+
+  filtrarUsuarios(): void {
+    const texto = this.textoBusqueda.toLowerCase();
+
+    this.usuariosFiltrados = this.usuarios.filter(usuario =>
+      usuario.nombre?.toLowerCase().includes(texto) ||
+      usuario.telefono?.toLowerCase().includes(texto) ||
+      usuario.correo?.toLowerCase().includes(texto)
+    );
+
+    this.totalPaginas = Math.ceil(this.usuariosFiltrados.length / this.registrosPorPagina);
+    this.currentPage = 1;
+    this.paginarUsuarios();
   }
 
 

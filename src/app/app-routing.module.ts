@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HistorialComponent } from './historial/historial.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/historial', pathMatch: 'full' },
-  { path: 'historial', component: HistorialComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'historial', component: HistorialComponent }
+  
 ];
 
 @NgModule({

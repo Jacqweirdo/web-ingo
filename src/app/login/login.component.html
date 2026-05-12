@@ -1,0 +1,74 @@
+<div class="login-page">
+  <div class="login-card">
+
+    <div class="logo-section">
+      <img src="assets/ingo.jpg" alt="Logo INGO" class="logo">
+      <h1>Bienvenido a INGO</h1>
+      <p>Acceso exclusivo para administradores</p>
+    </div>
+
+    <form class="login-form">
+
+      <div class="input-group">
+        <label>Correo electrónico</label>
+        <div class="input-box">
+          <i class="fas fa-envelope"></i>
+          <input 
+            type="email" 
+            placeholder="ejemplo@correo.com"
+            [(ngModel)]="correo"
+            name="correo"
+          >
+        </div>
+      </div>
+
+        <button 
+            type="button" 
+            class="btn btn-code"
+            (click)="mostrarCodigo = true"
+            *ngIf="!mostrarCodigo"
+            >
+            Enviar código
+        </button>
+
+      <div class="input-group code-section" *ngIf="mostrarCodigo">
+        <label>Código de verificación</label>
+        <div class="input-box">
+          <i class="fas fa-key"></i>
+          <input 
+            type="text" 
+            maxlength="6"
+            placeholder="Ingresa el código de 6 dígitos"
+            [(ngModel)]="codigo"
+            name="codigo"
+          >
+        </div>
+
+        <small>
+            Te enviaremos un código temporal a tu correo electrónico.
+        </small>
+
+        <p class="reenviar-texto">
+        ¿No recibiste el código?
+        <span (click)="reenviarCodigo()">
+            Haz clic para reenviar
+        </span>
+        </p>
+      </div>
+
+      <button 
+        type="button" 
+        class="btn btn-login"
+        *ngIf="mostrarCodigo"
+      >
+        Iniciar sesión
+      </button>
+
+    </form>
+
+    <div class="footer-text">
+      © 2025 AGROCOMPA · INGO ChatBot Agrícola
+    </div>
+
+  </div>
+</div>

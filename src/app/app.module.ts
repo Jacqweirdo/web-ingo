@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { HistorialComponent } from './historial/historial.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HistorialComponent
+    HistorialComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

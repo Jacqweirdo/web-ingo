@@ -25,11 +25,18 @@
         <button 
             type="button" 
             class="btn btn-code"
-            (click)="mostrarCodigo = true"
+            (click)="enviarCodigo()"
             *ngIf="!mostrarCodigo"
             >
             Enviar código
         </button>
+        <div 
+            class="mensaje-login"
+            *ngIf="mensaje"
+            [ngClass]="tipoMensaje"
+            >
+            {{ mensaje }}
+        </div>
 
       <div class="input-group code-section" *ngIf="mostrarCodigo">
         <label>Código de verificación</label>
@@ -60,7 +67,8 @@
         type="button" 
         class="btn btn-login"
         *ngIf="mostrarCodigo"
-      >
+        (click)="validarCodigo()"
+        >
         Iniciar sesión
       </button>
 

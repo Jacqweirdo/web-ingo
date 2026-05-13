@@ -42,6 +42,7 @@
             <th>Mapa de Agua</th>
             <th>Mapa de Fotosíntesis</th>
             <th>Plano de Relieve</th>
+            <th>Fecha de creación</th>
           </tr>
         </thead>
         <tbody>
@@ -51,23 +52,87 @@
             <td>{{ usuario.correo }}</td>
             <td><a [href]="usuario.ubicacion" target="_blank">{{ usuario.ubicacion }}</a></td>
             <td>
-              <img *ngIf="usuario.mapatextura" [src]="usuario.mapatextura" alt="Mapa de Textura"
-                  (click)="abrirModal(usuario.mapatextura, usuario.descripcionmapatextura, 'Mapa de Textura')" />
+              <div class="mapa-preview" *ngIf="usuario.mapatextura; else sinTextura">
+                <img
+                  [src]="usuario.mapatextura"
+                  alt="Mapa de Textura"
+                  loading="lazy"
+                  referrerpolicy="no-referrer"
+                  (click)="abrirModal(usuario.mapatextura, usuario.descripcionmapatextura, 'Mapa de Textura')"
+                  (error)="manejarErrorImagen($event)"
+                />
+                <button type="button" (click)="abrirImagenNuevaPestana(usuario.mapatextura)">
+                  Abrir
+                </button>
+              </div>
+
+              <ng-template #sinTextura>
+                <span class="sin-mapa">Sin mapa</span>
+              </ng-template>
             </td>
 
             <td>
-              <img *ngIf="usuario.mapaagua" [src]="usuario.mapaagua" alt="Mapa de Agua"
-                  (click)="abrirModal(usuario.mapaagua, usuario.descripcionmapaagua, 'Mapa de Agua')" />
+              <div class="mapa-preview" *ngIf="usuario.mapaagua; else sinAgua">
+                <img
+                  [src]="usuario.mapaagua"
+                  alt="Mapa de Agua"
+                  loading="lazy"
+                  referrerpolicy="no-referrer"
+                  (click)="abrirModal(usuario.mapaagua, usuario.descripcionmapaagua, 'Mapa de Agua')"
+                  (error)="manejarErrorImagen($event)"
+                />
+                <button type="button" (click)="abrirImagenNuevaPestana(usuario.mapaagua)">
+                  Abrir
+                </button>
+              </div>
+
+              <ng-template #sinAgua>
+                <span class="sin-mapa">Sin mapa</span>
+              </ng-template>
             </td>
 
             <td>
-              <img *ngIf="usuario.mapafotosintesis" [src]="usuario.mapafotosintesis" alt="Mapa de Fotosíntesis"
-                  (click)="abrirModal(usuario.mapafotosintesis, usuario.descripcionmapafotosintesis, 'Mapa de Fotosíntesis')" />
+              <div class="mapa-preview" *ngIf="usuario.mapafotosintesis; else sinFotosintesis">
+                <img
+                  [src]="usuario.mapafotosintesis"
+                  alt="Mapa de Fotosíntesis"
+                  loading="lazy"
+                  referrerpolicy="no-referrer"
+                  (click)="abrirModal(usuario.mapafotosintesis, usuario.descripcionmapafotosintesis, 'Mapa de Fotosíntesis')"
+                  (error)="manejarErrorImagen($event)"
+                />
+                <button type="button" (click)="abrirImagenNuevaPestana(usuario.mapafotosintesis)">
+                  Abrir
+                </button>
+              </div>
+
+              <ng-template #sinFotosintesis>
+                <span class="sin-mapa">Sin mapa</span>
+              </ng-template>
             </td>
 
             <td>
-              <img *ngIf="usuario.planorelieve" [src]="usuario.planorelieve" alt="Plano de Relieve"
-                  (click)="abrirModal(usuario.planorelieve, usuario.descripcionplanorelieve, 'Plano de Relieve')" />
+              <div class="mapa-preview" *ngIf="usuario.planorelieve; else sinRelieve">
+                <img
+                  [src]="usuario.planorelieve"
+                  alt="Plano de Relieve"
+                  loading="lazy"
+                  referrerpolicy="no-referrer"
+                  (click)="abrirModal(usuario.planorelieve, usuario.descripcionplanorelieve, 'Plano de Relieve')"
+                  (error)="manejarErrorImagen($event)"
+                />
+                <button type="button" (click)="abrirImagenNuevaPestana(usuario.planorelieve)">
+                  Abrir
+                </button>
+              </div>
+
+              <ng-template #sinRelieve>
+                <span class="sin-mapa">Sin mapa</span>
+              </ng-template>
+            </td>
+
+            <td class="fecha-creacion">
+              {{ usuario.created_at | date:'dd/MM/yyyy HH:mm' }}
             </td>
 
           </tr>

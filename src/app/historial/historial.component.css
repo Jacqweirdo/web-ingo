@@ -1,18 +1,19 @@
-/* Layout general */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden; /* 👈 Para no hacer scroll general, solo scroll en tabla */
-}
+/* =========================
+   LAYOUT GENERAL
+========================= */
 
 :host {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* HEADER fijo */
+/* =========================
+   HEADER FIJO
+========================= */
+
 #header {
   background-color: #29691B;
   color: white;
@@ -38,26 +39,36 @@ body, html {
 .header-left {
   display: flex;
   align-items: center;
+  min-width: 0;
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   margin-right: 10px;
-  border-radius: 40%;  
+  border-radius: 50%;
+  object-fit: cover;
+  background: white;
+  flex-shrink: 0;
 }
 
 .header-title {
   font-size: 16px;
   font-weight: bold;
+  line-height: 1.2;
 }
 
 .header-right {
   font-size: 18px;
   font-weight: bold;
+  margin-left: 16px;
+  white-space: nowrap;
 }
 
-/* FOOTER fijo */
+/* =========================
+   FOOTER FIJO
+========================= */
+
 #footer {
   background-color: #29691B;
   color: white;
@@ -69,20 +80,24 @@ body, html {
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
 }
 
-/* CONTENIDO principal debajo de header y arriba del footer */
+/* =========================
+   CONTENIDO PRINCIPAL
+========================= */
+
 #mainContent {
-  margin-top: 70px; /* espacio header */
-  margin-bottom: 50px; /* espacio footer */
-  height: calc(100vh - 120px); /* altura total - header - footer */
+  margin-top: 70px;
+  margin-bottom: 50px;
+  height: calc(100vh - 120px);
   overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* CONTENIDO del historial */
 #historialContainer {
   width: 90%;
-  max-width: 1400px;
+  max-width: 1500px;
   margin: auto;
   height: 100%;
   display: flex;
@@ -91,266 +106,176 @@ body, html {
 
 #txtHistorial {
   text-align: center;
-  font-size: 28px;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  font-size: clamp(24px, 3vw, 34px);
+  margin-top: 18px;
+  margin-bottom: 12px;
 }
 
-/* BUSCADOR */
+/* =========================
+   BUSCADOR
+========================= */
+
 .search-wrapper {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .search-input {
   position: relative;
+  width: 100%;
+  max-width: 390px;
 }
 
 .search-input i {
   position: absolute;
   top: 50%;
-  left: 10px;
+  left: 12px;
   transform: translateY(-50%);
   color: gray;
   font-size: 16px;
 }
 
 .search-input input {
-  padding: 8px 8px 8px 35px;
-  width: 300px;
+  padding: 9px 10px 9px 38px;
+  width: 100%;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  box-sizing: border-box;
 }
 
-/* SCROLL SOLO EN LA TABLA */
+/* =========================
+   TABLA ESCRITORIO
+========================= */
+
 .tabla-scroll {
   flex-grow: 1;
+  width: 100%;
+  overflow-x: auto;
   overflow-y: auto;
   background: white;
   border-radius: 8px;
-  padding: 5px;
-  background: white;
-  padding: 0px;
+  border: 1px solid #d7e5d3;
+  box-sizing: border-box;
 }
 
-/* ESTILO DE TABLA */
-table {
+/* Para evitar que se aplaste en ventanas pequeñas */
+.tabla-scroll table {
   width: 100%;
+  min-width: 1280px;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-th {
+.tabla-scroll thead {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+}
+
+.tabla-scroll th {
   text-align: center;
   padding: 12px 8px;
   background-color: #518546;
   color: white;
   font-weight: bold;
-  font-size: 16px;
-  position: sticky;
-  top: 0;
-  z-index: 500;
-  white-space: normal;
-  word-wrap: break-word;
-  background-color: #518546 !important;
-}
-
-td {
-  text-align: center;
-  padding: 5px 8px;
-  font-size: 16px;
+  font-size: 15px;
+  line-height: 1.15;
   white-space: normal;
   word-wrap: break-word;
 }
 
-/* ANCHO ESPECÍFICO POR COLUMNA */
-th:nth-child(1),
-td:nth-child(1) {
-  width: 120px; /* Número telefónico */
-}
-
-th:nth-child(2),
-td:nth-child(2) {
-  width: 120px; /* Nombre */
-}
-
-th:nth-child(3),
-td:nth-child(3) {
-  width: 180px; /* Correo electrónico */
-}
-
-th:nth-child(4),
-td:nth-child(4) {
-  width: 250px; /* Ubicación (enlace largo) */
-}
-
-th:nth-child(5),
-td:nth-child(5),
-th:nth-child(6),
-td:nth-child(6),
-th:nth-child(7),
-td:nth-child(7),
-th:nth-child(8),
-td:nth-child(8) {
-  width: 100px; /* Mapas (imágenes) */
-}
-
-table img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  cursor: pointer;
-  border-radius: 8px;
-}
-
-/* Paginación */
-.paginacion {
-  margin-top: 10px;
+.tabla-scroll td {
   text-align: center;
+  padding: 10px 8px;
+  font-size: 14px;
+  white-space: normal;
+  word-wrap: break-word;
+  vertical-align: middle;
+  border-bottom: 1px solid #edf2ec;
 }
 
-.paginacion button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  margin: 0 5px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
+.tabla-scroll tbody tr:hover {
+  background-color: #f6fbf5;
 }
 
-.paginacion button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
+/* Ancho por columna */
+.tabla-scroll th:nth-child(1),
+.tabla-scroll td:nth-child(1) {
+  width: 120px;
 }
 
-.paginacion span {
-  font-size: 16px;
-  margin: 0 10px;
+.tabla-scroll th:nth-child(2),
+.tabla-scroll td:nth-child(2) {
+  width: 130px;
 }
 
-
-.modal {
-  position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.tabla-scroll th:nth-child(3),
+.tabla-scroll td:nth-child(3) {
+  width: 190px;
 }
 
-/* Contenido del modal */
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
-  position: relative;
+.tabla-scroll th:nth-child(4),
+.tabla-scroll td:nth-child(4) {
+  width: 250px;
 }
 
-/* Botón de cerrar */
-.close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 30px;
-  cursor: pointer;
+.tabla-scroll th:nth-child(5),
+.tabla-scroll td:nth-child(5),
+.tabla-scroll th:nth-child(6),
+.tabla-scroll td:nth-child(6),
+.tabla-scroll th:nth-child(7),
+.tabla-scroll td:nth-child(7),
+.tabla-scroll th:nth-child(8),
+.tabla-scroll td:nth-child(8) {
+  width: 110px;
 }
 
-.close:hover {
-  color: black;
+.tabla-scroll th:nth-child(9),
+.tabla-scroll td:nth-child(9) {
+  width: 135px;
 }
 
+/* =========================
+   MINIATURAS DE MAPAS
+========================= */
 
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-}
-
-.modal-contenido {
-  background: white;
-  padding: 20px;
-  width: 400px;
-  max-width: 90%;
-  border-radius: 8px;
-  text-align: center;
-  position: relative;
-}
-
-.modal-content img {
-  width: 60%;
-  max-width: 400px;
-  margin: 20px 0;
-  border-radius: 10px;
-}
-
-
-/* Botón de cerrar */
-.cerrar-modal {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  font-size: 28px;
-  cursor: pointer;
-  color: black;
-}
-.modal-content p {
-  font-size: 16px;
-  color: #333;
-}
 .mapa-preview {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
 
 .mapa-preview img {
-  width: 78px;
-  height: 78px;
+  width: 72px;
+  height: 72px;
   object-fit: cover;
-  border-radius: 10px;
-  border: 1px solid #cfcfcf;
   cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid #d2d2d2;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .mapa-preview img:hover {
-  transform: scale(1.06);
+  transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .mapa-preview button {
   border: none;
-  background: #29691B;
+  background-color: #1f6b24;
   color: white;
-  padding: 4px 9px;
-  border-radius: 6px;
+  padding: 4px 10px;
   font-size: 12px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .mapa-preview button:hover {
-  background: #1f5015;
+  background-color: #174f1a;
 }
 
 .sin-mapa {
@@ -367,8 +292,80 @@ table img {
   margin-bottom: 4px;
 }
 
+.fecha-creacion {
+  min-width: 130px;
+  font-size: 13px;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* =========================
+   PAGINACIÓN
+========================= */
+
+.paginacion {
+  margin-top: 12px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.paginacion button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  min-width: 52px;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.paginacion button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.paginacion span {
+  font-size: 16px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
 .modal-content {
+  background-color: white;
+  padding: 22px;
+  border-radius: 12px;
+  width: 90%;
   max-width: 850px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-top: 5px;
+  color: #174d1d;
 }
 
 .modal-content img {
@@ -376,14 +373,216 @@ table img {
   max-width: 780px;
   max-height: 70vh;
   object-fit: contain;
-  margin: 20px 0;
+  margin: 18px 0;
   border-radius: 10px;
 }
 
-.fecha-creacion {
-  min-width: 130px;
-  font-size: 13px;
+.modal-content p {
+  font-size: 16px;
   color: #333;
-  font-weight: 600;
-  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: black;
+}
+
+/* =========================
+   VISTA MÓVIL EN TARJETAS
+========================= */
+
+.mobile-cards {
+  display: none;
+}
+
+/* =========================
+   RESPONSIVE TABLET / MÓVIL
+========================= */
+
+@media (max-width: 900px) {
+  #header {
+    height: auto;
+    min-height: 74px;
+    padding: 8px 14px;
+  }
+
+  .header-content {
+    gap: 10px;
+  }
+
+  .header-left {
+    flex: 1;
+  }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .header-title {
+    font-size: 14px;
+    line-height: 1.15;
+  }
+
+  .header-right {
+    font-size: 16px;
+  }
+
+  #mainContent {
+    margin-top: 80px;
+    height: calc(100vh - 130px);
+  }
+
+  #historialContainer {
+    width: 94%;
+  }
+
+  #txtHistorial {
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  :host {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  #header {
+    position: relative;
+    min-height: 78px;
+  }
+
+  #footer {
+    position: relative;
+    height: auto;
+    font-size: 13px;
+  }
+
+  #mainContent {
+    margin-top: 0;
+    margin-bottom: 0;
+    height: auto;
+    min-height: calc(100vh - 130px);
+    overflow: visible;
+    padding: 12px 0 20px;
+  }
+
+  #historialContainer {
+    width: 92%;
+    height: auto;
+  }
+
+  #txtHistorial {
+    font-size: 23px;
+    margin: 12px 0 14px;
+  }
+
+  .search-wrapper {
+    margin-bottom: 14px;
+  }
+
+  .desktop-table {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .user-card {
+    background: #ffffff;
+    border: 1px solid #d8e7d4;
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+    border-bottom: 1px solid #edf2eb;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card-header h3 {
+    margin: 0;
+    font-size: 19px;
+    color: #174d1d;
+  }
+
+  .card-header p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #555;
+  }
+
+  .card-date {
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    min-width: 95px;
+  }
+
+  .card-info p {
+    margin: 7px 0;
+    font-size: 14px;
+    color: #333;
+    word-break: break-word;
+  }
+
+  .card-info a {
+    color: #1f6b24;
+    font-weight: bold;
+  }
+
+  .card-mapas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .card-mapas button {
+    border: none;
+    background: #1f6b24;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 8px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .paginacion {
+    margin-top: 16px;
+    gap: 10px;
+  }
+
+  .paginacion span {
+    font-size: 15px;
+  }
+}
+
+table,
+input,
+button {
+  font-family: Arial, Helvetica, sans-serif;
 }

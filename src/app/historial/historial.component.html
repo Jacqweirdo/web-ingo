@@ -30,7 +30,7 @@
     </div>
 
     <!-- SCROLL SOLO EN TABLA -->
-    <div class="tabla-scroll">
+    <div class="tabla-scroll desktop-table">
       <table>
         <thead>
           <tr>
@@ -138,6 +138,67 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="mobile-cards">
+      <div class="user-card" *ngFor="let usuario of usuariosPaginados">
+
+        <div class="card-header">
+          <div>
+            <h3>{{ usuario.nombre || 'Sin nombre' }}</h3>
+            <p>{{ usuario.telefono }}</p>
+          </div>
+
+          <span class="card-date">
+            {{ usuario.created_at | date:'dd/MM/yyyy HH:mm' }}
+          </span>
+        </div>
+
+        <div class="card-info">
+          <p>
+            <strong>Correo:</strong>
+            {{ usuario.correo || 'Sin correo' }}
+          </p>
+
+          <p>
+            <strong>Ubicación:</strong>
+            <a [href]="usuario.ubicacion" target="_blank">Abrir ubicación</a>
+          </p>
+        </div>
+
+        <div class="card-mapas">
+
+          <button
+            *ngIf="usuario.mapatextura"
+            type="button"
+            (click)="abrirModal(usuario.mapatextura, usuario.descripcionmapatextura, 'Mapa de Textura')">
+            Textura
+          </button>
+
+          <button
+            *ngIf="usuario.mapaagua"
+            type="button"
+            (click)="abrirModal(usuario.mapaagua, usuario.descripcionmapaagua, 'Mapa de Agua')">
+            Agua
+          </button>
+
+          <button
+            *ngIf="usuario.mapafotosintesis"
+            type="button"
+            (click)="abrirModal(usuario.mapafotosintesis, usuario.descripcionmapafotosintesis, 'Mapa de Fotosíntesis')">
+            Fotosíntesis
+          </button>
+
+          <button
+            *ngIf="usuario.planorelieve"
+            type="button"
+            (click)="abrirModal(usuario.planorelieve, usuario.descripcionplanorelieve, 'Plano de Relieve')">
+            Relieve
+          </button>
+
+        </div>
+
+      </div>
     </div>
 
     <div class="paginacion">
